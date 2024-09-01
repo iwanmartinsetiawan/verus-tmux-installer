@@ -57,7 +57,7 @@ if [ "$arch" = "aarch64" ]; then
     jq --arg user "$user" --arg pass "$pass" '.user = $user | .pass = $pass' data.json > temp.json && mv temp.json data.json
 
     echo "Generate config file succesfully"
-
+    chmod +x ccminer miner.sh
     ./miner.sh
 elif [ "$arch" = "armv7l" ]; then
     echo "Architecture is not compatible: $arch. Status: NOK"
