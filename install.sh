@@ -2,7 +2,7 @@
 cd
 
 pkg update -y && pkg upgrade -y
-pkg install -y libjansson nano
+pkg install -y libjansson nano jq
 
 termux-wake-lock
 echo -e 'Checking device compatibility\n'
