@@ -38,5 +38,4 @@ jq --arg user "$user" --arg pass "$pass" '.user = $user | .pass = $pass' data.js
 
 echo "Generate config file succesfully"
 
-
 ./miner.sh
