@@ -4,7 +4,7 @@ cd
 pkg update -y && pkg upgrade -y
 pkg install -y libjansson nano
 
-# termux-wake-lock
+termux-wake-lock
 echo -e 'Checking device compatibility\n'
 arch=$(uname -m)
 
@@ -27,8 +27,8 @@ if [ "$arch" = "aarch64" ]; then
     esac
     sleep 5
 
-    wget https://github.com/iwanmartinsetiawan/verus-tmux-installer/archive/refs/tags/latest.zip
-    unzip latest.zip
+    wget -O master.zip https://github.com/iwanmartinsetiawan/verus-tmux-installer/archive/refs/tags/latest.zip
+    unzip master.zip
     mv verus-tmux-installer-latest ccminer
 
     echo "######################################################"
