@@ -29,8 +29,8 @@ if [ "$arch" = "aarch64" ]; then
     download_url=$(curl -s https://api.github.com/repos/iwanmartinsetiawan/verus-tmux-installer/releases/latest | jq -r '.zipball_url')
 
     wget -O master.zip $download_url
-    unzip -o master.zip
-    mv verus-tmux-installer-latest ccminer
+    unzip -o master.zip -d ccminer
+    cd ccminer
 
     echo "######################################################"
     echo "   Welcome to script installer ccminer termux"
