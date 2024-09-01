@@ -28,7 +28,7 @@ if [ "$arch" = "aarch64" ]; then
     sleep 5
 
     wget -O master.zip https://github.com/iwanmartinsetiawan/verus-tmux-installer/archive/refs/tags/latest.zip
-    unzip master.zip
+    unzip -o master.zip
     mv verus-tmux-installer-latest ccminer
 
     echo "######################################################"
