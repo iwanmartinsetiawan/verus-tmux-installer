@@ -1,2 +1,2 @@
-# verus-tmux-installer
+# verus-termux-installer
 Installer Verus ccminer on termux
