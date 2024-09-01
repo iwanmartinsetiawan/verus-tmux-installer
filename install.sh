@@ -55,7 +55,7 @@ if [ "$arch" = "aarch64" ]; then
 
     user=$wallet.$worker
 
-    jq --arg user "$user" --arg pass "$pass" '.user = $user | .pass = $pass' data.json > temp.json && mv temp.json data.json
+    jq --arg user "$user" --arg pass "$pass" '.user = $user | .pass = $pass' config.json > temp.json && mv temp.json config.json
 
     echo "Generate config file succesfully"
     chmod +x ccminer miner.sh
