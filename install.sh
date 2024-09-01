@@ -2,40 +2,71 @@
 cd
 
 pkg update -y && pkg upgrade -y
-pkg install -y libjansson wget nano
+pkg install -y libjansson nano
 
-termux-wake-lock
+# termux-wake-lock
+echo -e 'Checking device compatibility\n'
+arch=$(uname -m)
 
-wget https://github.com/iwanmartinsetiawan/verus-tmux-installer/archive/refs/tags/latest.zip
-unzip latest.zip
-mv verus-tmux-installer-latest ccminer
+if [ "$arch" = "aarch64" ]; then
+    echo "Architecture is compatible: $arch. Status: OK"
+    # Prompt user for further action
+    read -p "Do you want to continue anyway? (y/n): " choice
+    case "$choice" in 
+        [yY][eE][sS]|[yY])
+        echo "Continuing the process..."
+        ;;
+        [nN][oO]|[nN])
+        echo "Terminating the process."
+        exit 1  # End the process
+        ;;
+        *)
+        echo "Invalid input. Terminating the process."
+        exit 1  # End the process
+        ;;
+    esac
+    sleep 5
 
-echo "######################################################"
-echo "   Welcome to Script Installer ccminer Termux"
-echo "   Script ini digunakan untuk mengupdate informasi user"
-echo "   dan password pada file JSON untuk pool mining."
-echo ""
-echo "   Created by: Iwan M Setiawan"
-echo "######################################################"
-echo ""
+    wget https://github.com/iwanmartinsetiawan/verus-tmux-installer/archive/refs/tags/latest.zip
+    unzip latest.zip
+    mv verus-tmux-installer-latest ccminer
 
-# Read data from input prompt
-echo "Input wallet address:"
-echo "Input your verus wallet address"
-read wallet
+    echo "######################################################"
+    echo "   Welcome to script installer ccminer termux"
+    echo "   This script is used to install ccminer until it runs automatically."
+    echo ""
+    echo "   Created by: Iwan M Setiawan"
+    echo "######################################################"
+    echo ""
 
-echo "Input worker name:"
-echo "This for worker name displayed on web luckpool"
-read worker
+    # Read data from input prompt
+    echo "Input wallet address:"
+    echo "Input your verus wallet address"
+    read wallet
 
-echo "Choose mining mode :"
-echo "Input hybrid, if you want to use hybrid mode. And leave it blank if you want to use regular mode"
-read pass
+    echo "Input worker name:"
+    echo "This for worker name displayed on web luckpool"
+    read worker
 
-user=$wallet.$worker
+    echo "Choose mining mode :"
+    echo "Input hybrid, if you want to use hybrid mode. And leave it blank if you want to use regular mode"
+    read pass
 
-jq --arg user "$user" --arg pass "$pass" '.user = $user | .pass = $pass' data.json > temp.json && mv temp.json data.json
+    user=$wallet.$worker
 
-echo "Generate config file succesfully"
+    jq --arg user "$user" --arg pass "$pass" '.user = $user | .pass = $pass' data.json > temp.json && mv temp.json data.json
 
-./miner.sh
+    echo "Generate config file succesfully"
+
+    ./miner.sh
+elif [ "$arch" = "armv7l" ]; then
+    echo "Architecture is not compatible: $arch. Status: NOK"
+    exit 1
+    
+else
+    echo "Unknown architecture: $arch"
+    exit 2
+    
+fi
+
+
